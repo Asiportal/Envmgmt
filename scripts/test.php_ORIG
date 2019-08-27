@@ -1,0 +1,985 @@
+<%@ page import="model.UnixData" %>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<%
+String name=(String)session.getAttribute("user"); 
+if (name==null)
+{
+response.sendRedirect("Login");
+}
+%>
+
+<%
+
+String ASIA_HOME_Bancs_online="";
+String ASIA_HOME_Bancs_Batch="";
+String ASIA_HOME_Bancs_SI="";
+String ASIA_APP_DATE_GLOBAL="";
+String ASIA_APP_DATE_SINGAPORE="";
+String ASIA_APP_DATE_HONGKONG="";
+String ASIA_WEBLOGIC_Admin="";
+String ASIA_WEBLOGIC_MANAGED="";
+String ASIA_SI_SGSGPFL="";
+String ASIA_SI_SGSGPMQ="";
+String ASIA_SI_HKHKGFL="";
+String ASIA_SI_HKHKGMQ="";
+String ASIA_INTRA_SG="";
+String ASIA_INTRA_HK="";
+String ASIA_BG="";
+
+
+String ASID_HOME_Bancs_online="";
+String ASID_HOME_Bancs_Batch="";
+String ASID_HOME_Bancs_SI="";
+String ASID_APP_DATE_GLOBAL="";
+String ASID_APP_DATE_SINGAPORE="";
+String ASID_APP_DATE_HONGKONG="";
+String ASID_WEBLOGIC_Admin="";
+String ASID_WEBLOGIC_MANAGED="";
+String ASID_SI_SGSGPFL="";
+String ASID_SI_SGSGPMQ="";
+String ASID_SI_HKHKGFL="";
+String ASID_SI_HKHKGMQ="";
+String ASID_INTRA_SG="";
+String ASID_INTRA_HK="";
+String ASID_BG="";
+
+
+String ASII_HOME_Bancs_online="";
+String ASII_HOME_Bancs_Batch="";
+String ASII_HOME_Bancs_SI="";
+String ASII_APP_DATE_GLOBAL="";
+String ASII_APP_DATE_SINGAPORE="";
+String ASII_APP_DATE_HONGKONG="";
+String ASII_WEBLOGIC_Admin="";
+String ASII_WEBLOGIC_MANAGED="";
+String ASII_SI_SGSGPFL="";
+String ASII_SI_SGSGPMQ="";
+String ASII_SI_HKHKGFL="";
+String ASII_SI_HKHKGMQ="";
+String ASII_INTRA_SG="";
+String ASII_INTRA_HK="";
+String ASII_BG="";
+
+
+String ASIM_HOME_Bancs_online="";
+String ASIM_HOME_Bancs_Batch="";
+String ASIM_HOME_Bancs_SI="";
+String ASIM_APP_DATE_GLOBAL="";
+String ASIM_APP_DATE_SINGAPORE="";
+String ASIM_APP_DATE_HONGKONG="";
+String ASIM_WEBLOGIC_Admin="";
+String ASIM_WEBLOGIC_MANAGED="";
+String ASIM_SI_SGSGPFL="";
+String ASIM_SI_SGSGPMQ="";
+String ASIM_SI_HKHKGFL="";
+String ASIM_SI_HKHKGMQ="";
+String ASIM_INTRA_SG="";
+String ASIM_INTRA_HK="";
+String ASIM_BG="";
+
+
+
+String ASIU_HOME_Bancs_online="";
+String ASIU_HOME_Bancs_Batch="";
+String ASIU_HOME_Bancs_SI="";
+Stripx;
+    margin: 8px 100px;
+    display: inline-block;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+    div{ 
+    float: left;
+}
+table, th, td {
+border: 1px solid black;
+border-collapse:collapse;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+select {
+        width:200px;
+    }
+#chart_div {
+  width: 35%;
+  height: 400px;
+position:fixed;
+right: 0;
+
+}
+#left {
+    float:left;
+    
+}
+#right {
+    float:right;
+    
+}
+
+#bottom-right
+{
+right: 0;
+bottom: 0;
+center: 0;
+position: absolute;
+
+ background-color:#50C2D2;
+
+}
+
+p{
+
+float: right;
+}
+.tabGroup {
+    font: 10pt arial, verdana;
+    width: 100%;
+}
+ 
+
+.tabGroup > input[type="radio"] {
+    position: absolute;
+    left:-100px;
+}
+ 
+
+.tabGroup > div.tablabels {
+    display: inline-block;
+    vertical-align: top;
+    width:100%;
+    margin-right:-5px;
+}
+ 
+
+.tabGroup > div.tablabels > label {
+    display: inline-block;
+    width:16%;
+    border: 1px solid black;
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px ;
+    -webkit-border-radius: 5px 0 0 5px ;
+    padding: 5px 10px;
+    background-color:#ddd;
+    z-index:32767;
+}
+
+.tabGroup > input#rad1:checked ~ div.tablabels > label[for="rad1"],
+.tabGroup > input#rad2:checked ~ div.tablabels > label[for="rad2"],
+.tabGroup > input#rad3:checked ~ div.tablabels > label[for="rad3"],
+.tabGroup > input#rad4:checked ~ div.tablabels > label[for="rad4"],
+.tabGroup > input#rad5:checked ~ div.tablabels > label[for="rad5"],
+.tabGroup > input#rad6:checked ~ div.tablabels > label[for="rad6"],
+.tabGroup > input#rad7:checked ~ div.tablabels > label[for="rad7"]
+ {
+    background-color:#5EC3F1;
+    font-weight: bold;
+    border-right: none;;
+    position:relative;
+}
+ 
+.tabGroup > div.tabcontent {
+    display: inline-block;
+	width: 80%;
+	
+}
+ 
+
+.tabGroup > div.tabcontent > div {
+    width:125%;
+    display: none;
+    border: 1px solid black;
+    background-color:#F5F8E7 ;
+    padding: 10px 10px;
+    height: 150%;
+    overflow: auto;
+    box-shadow: 0 0 20px #444;
+    -moz-box-shadow: 0 0 20px #444;
+    -webkit-box-shadow: 0 0 20px #444;
+    border-radius: 0 5px 5px 5px;
+    -moz-border-radius: 0 5px 5px 5px;
+    -webkit-border-radius: 0 5px 5px 5px;
+}
+ 
+
+.tabGroup > .tab1:checked ~ div.tabcontent > .tab1,
+.tabGroup > .tab2:checked ~ div.tabcontent > .tab2,
+.tabGroup > .tab3:checked ~ div.tabcontent > .tab3,
+.tabGroup > .tab4:checked ~ div.tabcontent > .tab4,
+.tabGroup > .tab5:checked ~ div.tabcontent > .tab5,
+.tabGroup > .tab6:checked ~ div.tabcontent > .tab6
+ {
+    display: inline-block;
+	min-height: 400px;
+}
+
+/***** TabGroup2 *******/
+
+.tabGroup2 {
+    font: 10pt arial, verdana;
+    width: 100%;
+  left: 0px;
+}
+ 
+
+.tabGroup2 > input[type="radio"] {
+    position: fixed;
+    left: -100px;
+}
+ 
+
+.tabGroup2 > div.tablabels2  {
+    display: inline-block;
+    vertical-align: top;
+    width:33%;
+    margin-right:-5px;
+}
+ 
+
+.tabGroup2  > div.tablabels2 > label {
+    display: inline-block;
+    width:100%;
+    border: 1px solid black;
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px ;
+    -webkit-border-radius: 5px 0 0 5px ;
+    padding: 5px 10px;
+    background-color:#ddd;
+    z-index:32767;
+}
+ 
+
+
+.tabGroup2 > input#rad21:checked ~ div.tablabels2 > label[for="rad21"],
+.tabGroup2 > input#rad22:checked ~ div.tablabels2 > label[for="rad22"],
+.tabGroup2 > input#rad23:checked ~ div.tablabels2 > label[for="rad23"],
+.tabGroup2 > input#rad24:checked ~ div.tablabels2 > label[for="rad24"],
+.tabGroup2 > input#rad25:checked ~ div.tablabels2 > label[for="rad25"],
+.tabGroup2 > input#rad26:checked ~ div.tablabels2 > label[for="rad26"] {
+    background-color:#5EF184;
+    font-weight: bold;
+    border-right: none;;
+    position:relative;
+
+}
+ 
+.tabGroup2 > div.tabcontent2 {
+    display: inline-block;
+	width: 66%;
+height:50%;
+}
+ 
+
+.tabGroup2 > div.tabcontent2 > div {
+    width:200%;
+
+    display: none;
+    border: 1px solid black;
+    background-color: #F5F8E7;
+    padding: 10px 10px;
+    height: 100%;
+    overflow: auto;
+    box-shadow: 0 0 20px #444;
+    -moz-box-shadow: 0 0 20px #444;
+    -webkit-box-shadow: 0 0 20px #444;
+    border-radius: 0 5px 5px 5px;
+    -moz-border-radius: 0 5px 5px 5px;
+    -webkit-border-radius: 0 5px 5px 5px;
+}
+ 
+
+.tabGroup2 > .Home:checked ~ div.tabcontent2 > .Home,
+.tabGroup2 > .Applicationdate:checked ~ div.tabcontent2 > .Applicationdate,
+.tabGroup2 > .Weblogic:checked ~ div.tabcontent2 > .Weblogic,
+.tabGroup2 > .SI:checked ~ div.tabcontent2 > .SI,
+.tabGroup2 > .Intra:checked ~ div.tabcontent2 > .Intra,
+.tabGroup2 > .Backgroundjob:checked ~ div.tabcontent2 > .Backgroundjob
+ {
+    display: inline-block;
+	min-height: 400px;
+}
+/***** TabGroup3 *******/
+
+.tabGroup3 {
+    font: 10pt arial, verdana;
+    width: 100%;
+}
+ 
+
+.tabGroup3 > input[type="radio"] {
+    position: absolute;
+    left:-100px;
+}
+ 
+
+.tabGroup3 > div.tablabels3  {
+    display: inline-block;
+    vertical-align: top;
+    width:33%;
+    margin-right:-5px;
+}
+ 
+
+.tabGroup3  > div.tablabels3 > label {
+    display: inline-block;
+    width:100%;
+    border: 1px solid black;
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px ;
+    -webkit-border-radius: 5px 0 0 5px ;
+    padding: 5px 10px;
+    background-color:#ddd;
+    z-index:32767;
+}
+ 
+
+
+.tabGroup3 > input#rad31:checked ~ div.tablabels3 > label[for="rad31"],
+.tabGroup3 > input#rad32:checked ~ div.tablabels3 > label[for="rad32"],
+.tabGroup3 > input#rad33:checked ~ div.tablabels3 > label[for="rad33"],
+.tabGroup3 > input#rad34:checked ~ div.tablabels3 > label[for="rad34"],
+.tabGroup3 > input#rad35:checked ~ div.tablabels3 > label[for="rad35"],
+.tabGroup3 > input#rad36:checked ~ div.tablabels3 > label[for="rad36"] {
+    background-color:#5EF184;
+    font-weight: bold;
+    border-right: none;;
+    position:relative;
+}
+ 
+.tabGroup3 > div.tabcontent3 {
+    display: inline-block;
+	width: 66%;
+height:50%;
+}
+ 
+
+.tabGroup3 > div.tabcontent3 > div {
+    width:200%;
+
+    display: none;
+    border: 1px solid black;
+    background-color: #F5F8E7;
+    padding: 10px 10px;
+    height: 100%;
+    overflow: auto;
+    box-shadow: 0 0 20px #444;
+    -moz-box-shadow: 0 0 20px #444;
+    -wt form - fixed at the bottom of the page */
+.open-btn {
+  background-color: #FF8C00;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+ 
+  left: 1050px;
+bottom: 23px;
+  width: 100px;
+
+
+}
+
+/* The popup form - hidden by default */
+.form-popupp {
+  display: none;
+  position: fixed;
+  right:400px;
+ bottom: 0;
+  border: 3px solid #f1f1f1;
+
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-containerr {
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+
+}
+
+/* Full-width input fields */
+.form-containerr input[type=text], .form-containerr input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+
+}
+
+/* When the inputs get focus, do something */
+.form-containerr input[type=text]:focus, .form-containerr input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-containerr .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-containerr .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-containerr .btn:hover, .open-btn:hover {
+  opacity: 1;
+}
+.topnavv {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.topnavv a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnavv a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnavv a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnavv .search-container {
+  float: right;
+}
+
+.topnavv input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnavv .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnavv .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnavv .search-container {
+    float: none;
+  }
+  .topnavv a, .topnavv input[type=text], .topnavv .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnavv input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+.right
+{
+ right: 0;
+}
+
+.scrollit {
+    overflow:scroll;
+    height:400px;
+width:100%;
+}
+.container {
+  text-align: center;
+  overflow: hidden;
+  width: 800px;
+  margin: 0 auto;
+}
+
+.container table {
+  width: 100%;
+}
+
+.container td, .container th {
+  padding: 10px;
+}
+
+.container td:first-child, .container th:first-child {
+  padding-left: 20px;
+}
+
+.container td:last-child, .container th:last-child {
+  padding-right: 20px;
+}
+
+.container th {
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+h2
+{
+ text-align: center;
+
+}
+h2 span {
+background-color:gainsboro;
+ display:inline;
+
+}
+textarea {
+  resize: none;
+}
+</style>
+
+<body>
+    <header>
+        <div style="float:left" class="logo1">
+           <img src="images/logo1.PNG">
+</div> 
+   <div class="logo2" style="float:right" >
+            <img src="images/logo4.png">
+        </div>
+  
+ </header>
+</br>
+</br>
+</br>
+</br>
+
+    <nav class="clr">
+      <center><h2><span> Environment Management Portal</span></h2><h4>GBSU/FTB/HUB</h4> </center>     </nav>
+
+ &nbsp;&nbsp;
+<p align="left"> <h5>Logged in as: <%=name %></h5></p>
+<!--<div align="center"><h5 style="background-color:Orange;"> ASI Details   </h5></div><div id="chartdiv" ></div> -->
+
+<p align="right">
+ &nbsp;&nbsp;
+<!--   <input action="action" onclick="window.open('bar.php','_self')" type="button" value="FS" style="background-color:lightred; color: black;white-space:pre"  />
+ <input action="action" onclick="window.open('run.php','_self')" type="button" value="Script" style="background-color:lightred; color: black;white-space:pre"  />-->
+ &nbsp;&nbsp;
+  <button style="font-size:15px"  onclick="location.href='/DashBoard">DashBoard</button> &nbsp;&nbsp;
+ <button style="font-size:15px"  onclick="location.href='/DateFlip">DateFlip</button> &nbsp;&nbsp;
+ <button style="font-size:15px"  onclick="location.href='/Inject">Injection</button> &nbsp;&nbsp;
+				  <button style="font-size:15px"  onclick="location.href='/refreshPage'">Refresh <i class="fa fa-refresh"></i></button> &nbsp;&nbsp;
+<input action="action" onclick="location.href='/Logout'" type="button" value="Sign Out" style="background-color:lightred; color: black;white-space:pre"  />
+<form action="/downloadReport">
+	   <button class="btn btn-success pull-right">Download</button>
+	   </form>
+</br>
+
+<button class="open-button" onclick="location.href='/add'">Request</button>
+<button class="open-btn" onclick="location.href='/trackRequest'">Track</button>
+<div class="topnavv">
+<div class="content">
+<div class="form-popupp" id="myFormm">
+  <form enctype="text/plain" class="form-containerr" method="post">
+    <center><h1>Tracker History</h1></center>
+</br>
+<input type="text" id="myInput" onkeyup="myFunctionn()" placeholder="Search.."> 
+  <div class="search-container"> 
+
+</div>
+</br>
+</br>
+ <div class="scrollit">
+ <?php
+$hostname = "127.0.0.1"; // the hostname you created when creating the database
+$username = "root";      // the username specified when setting up the database
+$password = "";      // the password specified when setting up the database
+$database = "test1";      // the database name chosen when setting up the database 
+
+$conn = mysqli_connect($hostname, $username, $password, $database);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+//$sql2 = mysqli_query($mysqli, "INSERT INTO track( name, trackid, env, comments, status) VALUES('$name','$trackid','$env', '$comments', '$status')");
+$sql = mysqli_query($mysqli, "SELECT * FROM track ORDER BY trackid DESC");
+   
+?>
+<input type="search" class="light-table-filter" data-table="order-table" placeholder="Filtrer" />
+<select type="search" class="select-table-filter" data-table="order-tach</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Batch.." style="background-color:white; color: black"  disabled value="<%=ASID_HOME_Bancs_Batch %>">
+		 </form>
+		<form>
+         <label for="fname"> Bancs SI</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="SI.." style="background-color:white; color: black"  disabled value="<%=ASID_HOME_Bancs_SI %>">
+		 </form>
+		    </div>
+<div class="Applicationdate">
+<h3>Application Date</h3>
+		<form> 	
+         <label for="fname">Global date</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+         &nbsp;&nbsp;&nbsp;<input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASID_APP_DATE_GLOBAL %>">
+</br>
+<label for="fname">Singapore date</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASID_APP_DATE_SINGAPORE %>">
+</br>
+<label for="fname">Hongkong date</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASID_APP_DATE_HONGKONG %>">
+</form>
+		
+</div>
+                    <div class="Weblogic"><h3>Weblogic Status</h3>
+			<form>
+         <label for="fname">Admin Server</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Admin Server.." style="background-color:white; color: black"  disabled value="<%=ASID_WEBLOGIC_Admin %>">
+			</form>
+			<form>
+         <label for="fname">Managed Server</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Managed Server.." style="background-color:white; color: black"  disabled value="<%=ASID_WEBLOGIC_MANAGED %>">
+			</form>
+</div>
+                    <div class="SI"><h3>SI Status</h3>
+			<form>
+         <label for="fname">SGSGPFL</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASID_SI_SGSGPFL %>">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+		 <label for="fname">SGSGPMQ</label>&nbsp;
+       &nbsp;&nbsp;&nbsp;  <input type="text" id="fname" name="hostname" placeholder="Status" style="background-color:white; color: black"  disabled value="<%=ASID_SI_SGSGPMQ %>">
+			</form>
+			<form>
+         <label for="fname">HKHKGFL</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASID_SI_HKHKGFL %>">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+		 <label for="fname">HKHKGMQ</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="fname" name="hostname" placeholder="Status" style="background-color:white; color: black"  disabled value="<%=ASID_SI_HKHKGMQ %>">
+			</form>
+</div>
+<div class="Intra"><h3>Intra Status</h3>
+				 </br>
+				<form>
+         <label for="fname">SGSGP</label>
+		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ </br>
+ </br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <textarea rows="5" cols="100" maxlength="500" disabled style="background-color:white; color: black"><%=ASID_INTRA_SG %></textarea>
+
+         </br>
+</br>
+		 <label for="fname">HKHKG</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <textarea  rows="5" cols="100" maxlength="500" disabled style="background-color:white; color: black"><%=ASID_INTRA_HK %></textarea>
+</br>			</form>
+</div>
+<div class="Backgroundjob"><h3>Background Job Status</h3>
+			<form>
+         <label for="fname">BG</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASID_BG %>">
+		</div></div>
+</div>
+</div>
+  
+        <div class="tab3"> 
+            <div class="tabGroup4">
+                <input type="radio" name="tabGroup2" id="rad41" class="Home" checked="checked"/>
+                <input type="radio" name="tabGroup2" id="rad42" class="Applicationdate"/>
+                <input type="radio" name="tabGroup2" id="rad43" class="Weblogic"/>
+                <input type="radio" name="tabGroup2" id="rad44" class="SI"/>
+                <input type="radio" name="tabGroup2" id="rad45" class="Intra"/>
+                <input type="radio" name="tabGroup2" id="rad46" class="Backgroundjob"/>
+
+
+                <div class="tablabels4">
+                    <label for="rad41">Home</label>
+                    <label for="rad42">Application Date</label>
+                    <label for="rad43">Weblogic</label>
+                    <label for="rad44">SI</label>
+                    <label for="rad45">Intra</label>
+                    <label for="rad46">Background Job</label>                </div> 
+
+                <div class="tabcontent4">   
+                    <div class="Home"><h3>Home</h3>
+ <form>
+
+         <label for="fname">Hostname</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" id="fname" name="hostname" placeholder="Hostname.." style="background-color:white; color: black"  disabled value="DEUR12">
+		 </form>
+		 <form>
+		 <label for="fname">Application User</label>
+         <input type="text" id="fname" name="app" placeholder="Application User.." style="background-color:white; color: black"  disabled value="asiiadm">
+			<h3>Application Version : </h3>
+        </form>
+		<form>
+         <label for="fname">Bancs Online</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Online.." style="background-color:white; color: black"  disabled value="<%=ASII_HOME_Bancs_online %>">
+		 </form>
+		<form>
+         <label for="fname">Bancs Batch</label>
+		 &nbsp;&nbsp;&nbsp;&n            </div>
+            </div>
+ </div>
+ <div class="tab5"> 
+            <div class="tabGroup6">
+                <input type="radio" name="tabGroup2" id="rad61" class="Home" checked="checked"/>
+<input type="radio" name="tabGroup2" id="rad62" class="Applicationdate"/>          
+      <input type="radio" name="tabGroup2" id="rad63" class="Weblogic"/>
+                <input type="radio" name="tabGroup2" id="rad64" class="SI"/>
+                <input type="radio" name="tabGroup2" id="rad65" class="Intra"/>
+                <input type="radio" name="tabGroup2" id="rad66" class="Backgroundjob"/>
+
+
+                <div class="tablabels6">
+                    <label for="rad61">Home</label>
+                      <label for="rad62">Application Date</label>
+
+                    <label for="rad63">Weblogic</label>
+                    <label for="rad64">SI</label>
+                    <label for="rad65">Intra</label>
+                   <label for="rad66">Background Job</label>                </div> 
+
+                <div class="tabcontent6">   
+                    <div class="Home"><h3>Home</h3>
+ <form>
+
+         <label for="fname">Hostname</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" id="fname" name="hostname" placeholder="Hostname.." style="background-color:white; color: black"  disabled value="DEUR12">
+		 </form>
+		 <form>
+		 <label for="fname">Application User</label>
+         <input type="text" id="fname" name="app" placeholder="Application User.." style="background-color:white; color: black"  disabled value="asiuadm">
+		 
+       		<h3>Application Version : </h3>
+        </form>
+		<form>
+         <label for="fname">Bancs Online</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Online.." style="background-color:white; color: black"  disabled value="<%=ASIU_HOME_Bancs_online %>">
+		 </form>
+		<form>
+         <label for="fname">Bancs Batch</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Batch.." style="background-color:white; color: black"  disabled value="<%=ASIU_HOME_Bancs_Batch %>">
+		 </form>
+		<form>
+         <label for="fname"> Banca SI</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="SI.." style="background-color:white; color: black"  disabled value="<%=ASIU_HOME_Bancs_SI %>">
+		 </form>
+		    </div>
+
+<div class="Applicationdate">
+<h3>Application Date</h3>
+		<form> 	
+         <label for="fname">Global date</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+         &nbsp;&nbsp;&nbsp;<input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASIU_APP_DATE_GLOBAL %>">
+</br>
+<label for="fname">Singapore date</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASIU_APP_DATE_SINGAPORE %>">
+</br>
+<label for="fname">Hongkong date</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASIU_APP_DATE_HONGKONG %>">
+</form>
+		
+</div>
+                    <div class="Weblogic"><h3>Weblogic Status</h3>
+			<form>
+         <label for="fname">Admin Server</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Admin Server.."  style="background-color:white; color: black"   disabled value="<%=ASIU_WEBLOGIC_Admin %>">
+			</form>
+			<form>
+         <label for="fname">Managed Server</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Managed Server.." style="background-color:white; color: black"  disabled value="<%=ASIU_WEBLOGIC_MANAGED %>">
+			</form>
+</div>
+                    <div class="SI"><h3>SI Status</h3>
+			<form>
+         <label for="fname">SGSGPFL</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASIU_SI_SGSGPFL %>">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+		 <label for="fname">SGSGPMQ</label>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" id="fname" name="hostname" placeholder="Status" style="background-color:white; color: black"  disabled value="<%=ASIU_SI_SGSGPMQ %>">
+			</form>
+			<form>
+         <label for="fname">HKHKGFL</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASIU_SI_HKHKGFL %>">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</br>
+		 <label for="fname">HKHKGMQ</label>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="fname" name="hostname" placeholder="Status" style="background-color:white; color: black"  disabled value="<%=ASIU_SI_HKHKGMQ %>">
+			</form>
+</div>
+<div class="Intra"><h3>Intra Status</h3>
+				 </br>
+				<form>
+         <label for="fname">SGSGP</label>
+		  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ </br>
+ </br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <textarea rows="5" cols="100" maxlength="500" disabled style="background-color:white; color: black"><%=ASIU_INTRA_SG %></textarea>
+
+         </br>
+</br>
+		 <label for="fname">HKHKG</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br></br>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <textarea  rows="5" cols="100" maxlength="500" disabled style="background-color:white; color: black"><%=ASIU_INTRA_HK %></textarea>
+</br>			</form>
+</div>
+<div class="Backgroundjob"><h3>Background Job Status</h3>
+			<form>
+         <label for="fname">BG</label>
+		 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <input type="text" id="fname" name="hostname" placeholder="Status.." style="background-color:white; color: black"  disabled value="<%=ASIU_BG %>">
+		</div>
+
+      tion closeFormm() {
+  document.getElementById("myFormm").style.display = "none";
+
+}
+</script>
+
+<script>
+function myFunctionn() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+  <script language="javascript">
+    function WriteToFile(passForm) {
+      var fso = new ActiveXObject("Scripting.FileSystemObject");
+      var fileLoc = "C:\\sample.csv";
+      var file = fso.CreateTextFile(fileLoc, true);
+      file.writeline(passForm.Name.value + ',' +
+                     passForm.Trackid.value + ',' + passForm.Environment.value + ',' + passForm.Comments.value);
+      file.Close();
+      alert('File created successfully at location: ' + fileLoc);
+     }
+  </script>
+<script>
+(function(document) {
+	'use strict';
+
+	var LightTableFilter = (function(Arr) {
+
+		var _input;
+    var _select;
+
+		function _onInputEvent(e) {
+			_input = e.target;
+			var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filter);
+				});
+			});
+		}
+    
+		function _onSelectEvent(e) {
+			_select = e.target;
+			var tables = document.getElementsByClassName(_select.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filterSelect);
+				});
+			});
+		}
+
+		function _filter(row) {
+      
+			var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+			row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+
+		}
+    
+		function _filterSelect(row) {
+     
+			var text_select = row.textContent.toLowerCase(), val_select = _select.options[_select.selectedIndex].value.toLowerCase();
+			row.style.display = text_select.indexOf(val_select) === -1 ? 'none' : 'table-row';
+
+		}
+
+		return {
+			init: function() {
+				var inputs = document.getElementsByClassName('light-table-filter');
+				var selects = document.getElementsByClassName('select-table-filter');
+				Arr.forEach.call(inputs, function(input) {
+					input.oninput = _onInputEvent;
+				});
+				Arr.forEach.call(selects, function(select) {
+         select.onchange  = _onSelectEvent;
+				});
+			}
+		};
+	})(Array.prototype);
+
+	document.addEventListener('readystatechange', function() {
+		if (document.readyState === 'complete') {
+			LightTableFilter.init();
+		}
+	});
+
+})(document);
+</script>
+ 
+
+</body>
+
+</html>
+
