@@ -1,0 +1,716 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.model.Track" %>
+<%@ page import="com.model.UserLogin" %>
+<%@ page import="com.model.DashboardData" %>
+<html>
+
+<head>
+<%
+String name=(String)session.getAttribute("user");
+UserLogin userLogin=(UserLogin)session.getAttribute("userLogin");
+if (name==null)
+{
+response.sendRedirect("Login");
+}
+%>
+ <%
+ String ASIVGLOBAL_DATE="";
+ String ASIAGLOBAL_DATE="";
+ String ASIDGLOBAL_DATE="";
+ String ASIIGLOBAL_DATE="";
+ String ASIUGLOBAL_DATE="";
+ String ASIMGLOBAL_DATE="";
+ String asiv_releae="";
+ String asia_releae="";
+ String asid_releae="";
+ String asii_releae="";
+ String asiu_releae="";
+ String asim_releae="";
+ String ASIV_MANG_SER="";
+ String ASIA_MANG_SER="";
+ String ASID_MANG_SER="";
+ String ASII_MANG_SER="";
+ String ASIU_MANG_SER="";
+ String ASIM_MANG_SER="";
+
+DashboardData dashboardData=(DashboardData)session.getAttribute("dashboardData");
+
+ASIVGLOBAL_DATE=dashboardData.getASIVGLOBAL_DATE();
+ASIAGLOBAL_DATE=dashboardData.getASIAGLOBAL_DATE();
+ASIDGLOBAL_DATE=dashboardData.getASIDGLOBAL_DATE();
+ASIIGLOBAL_DATE=dashboardData.getASIIGLOBAL_DATE();
+ASIUGLOBAL_DATE=dashboardData.getASIUGLOBAL_DATE();
+ASIMGLOBAL_DATE=dashboardData.getASIMGLOBAL_DATE();
+asiv_releae=dashboardData.getAsiv_releae();
+asia_releae=dashboardData.getAsia_releae();
+asid_releae=dashboardData.getAsid_releae();
+asii_releae=dashboardData.getAsii_releae();
+asiu_releae=dashboardData.getAsiu_releae();
+asim_releae=dashboardData.getAsim_releae();
+ASIV_MANG_SER=dashboardData.getASIV_MANG_SER();
+ASIA_MANG_SER=dashboardData.getASIA_MANG_SER();
+ASID_MANG_SER=dashboardData.getASID_MANG_SER();
+ASII_MANG_SER=dashboardData.getASII_MANG_SER();
+ASIU_MANG_SER=dashboardData.getASIU_MANG_SER();
+ASIM_MANG_SER=dashboardData.getASIM_MANG_SER();
+
+%>
+
+ 
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">    <link rel="stylesheet" href="css/main.css">
+</head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="1" />
+<style>
+* {
+  padding: 0;
+  margin: 0;
+  font-family: arial;
+}
+
+body {
+ 
+padding: 0 40px; background-color: #F5F8E7; font-family: -apple-system,BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;}
+h2 { margin: -5px 0; }
+
+input[type=text], select {
+    width: 55%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+    div{ 
+    float: left;
+}
+table, th, td {
+border: 2px solid black;
+border-collapse:collapse;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+select {
+        width:500px;
+    }
+#chart_div {
+  width: 56%;
+  height: 600px;
+position:fixed;
+right: 0;
+
+}
+#left {
+    float:left;
+    
+}
+#right {
+    float:right;
+    
+}
+
+#bottom-right
+{
+right: 0;
+bottom: 0;
+center: 0;
+position: absolute;
+
+ background-color:#50C2D2;
+
+}
+
+p{
+
+float: right;
+}
+/* Add styles to the form container */
+.form-container {
+  max-width: 1000px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-btn {
+  background-color: #FF8C00;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+ 
+  left: 1050px;
+bottom: 23px;
+  width: 100px;
+
+
+}
+
+/* The popup form - hidden by default */
+.form-popupp {
+  display: none;
+  position: fixed;
+  right:400px;
+ bottom: 0;
+  border: 3px solid #f1f1f1;
+
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-containerr {
+  max-width: 100%;
+  padding: 10px;
+  background-color: white;
+
+}
+
+/* Full-width input fields */
+.form-containerr input[type=text], .form-containerr input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 2px 0;
+  border: none;
+  background: #f1f1f1;
+
+}
+
+/* When the inputs get focus, do something */
+.form-containerr input[type=text]:focus, .form-containerr input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-containerr .btn {
+  background-color: #4CDF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-containerr .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-containerr .btn:hover, .open-btn:hover {
+  opacity: 1;
+}
+.topnavv {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.topnavv a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnavv a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnavv a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.topnavv .search-container {
+  float: right;
+}
+
+.topnavv input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnavv .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnavv .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnavv .search-container {
+    float: none;
+  }
+  .topnavv a, .topnavv input[type=text], .topnavv .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+  .topnavv input[type=text] {
+    border: 1px solid #ccc;  
+  }
+}
+.right
+{
+ right: 0;
+}
+
+.scrollit {
+    
+    height:550px;
+width:100%;
+}
+.button1 {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+ 
+  font-size: 16px;
+  margin: 5px 2px;
+  cursor: pointer;
+  
+}
+.container {
+  text-align: center;
+  overflow: hidden;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.container table {
+  width: 100%;
+}
+
+.container td, .container th {
+  padding: 10px;
+}
+
+.container td:first-child, .container th:first-child {
+  padding-left: 20px;
+}
+
+.container td:last-child, .container th:last-child {
+  padding-right: 20px;
+}
+
+.container th {
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+h2
+{
+text-align: center;
+
+}
+h2 span {
+background-color:gainsboro;
+ display:inline;
+}
+
+.button2 {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+
+</style>
+ 
+<body>
+ <header>
+        <div style="float:left" class="logo1">
+           <img src="images/logo1.PNG">
+</div> 
+   <div class="logo2" style="float:right" >
+            <img src="images/logo4.png">
+        </div>
+  
+ </header>
+</br>
+</br>
+</br>
+</br>
+
+    <nav class="clr">
+     <center><h2><span> Environment Management Portal</span></h2><h4>GBSU/FTB/HUB</h4> </center>     </nav>
+	   <p align="right">
+
+<!--div align="center"><h5 style="background-color:Orange;"> ASI Details   </h5></div><div id="chartdiv" ></div> -->
+
+
+	
+  <p align="left"> <h5>Logged in as: <%=name %></h5></p>  
+ 	 <p align="right">   <input action="action" onclick="location.href='/Logout'" type="button" value="Sign Out" style="background-color:lightred; color: black;white-space:pre"  /></p>
+
+	</br>
+	</br>
+	<a href="/test" class="button1">Home</a>
+ <h2> Dashboard</h2>
+  	<h2></h2>
+	</br>
+  
+<div class="scrollit">
+    <table width='100%' border=0 class="order-table">
+        <tr bgcolor='#E0F8F7'>
+ <td><left>Env Name</left></td> 
+<td><left>Application Date</left></td> 
+  
+ <td><left>Application State</left></td>
+            
+                <td><left>Latest Release</left></td>
+            
+         
+        </tr>
+        
+                
+		          <tr>
+		        	<td> ASIV </td>
+		        	<td> <%=ASIVGLOBAL_DATE%>  </td>
+		        	<td><%=ASIV_MANG_SER%></td>
+                    <td><%=asiv_releae%></td>
+		        	
+		        	
+		       
+		          <tr>
+		        	<td> ASIA </td>
+		        	<td> <%=ASIAGLOBAL_DATE%>  </td>
+		        	<td><%=ASIA_MANG_SER%> </td>
+		        	<td><%=asia_releae%></td>
+		        	
+		        	
+		       
+		          <tr>
+		        	<td> ASID </td>
+		        	<td> <%=ASIDGLOBAL_DATE%> </td>
+		        	<td><%=ASID_MANG_SER%></td>
+		        	<td><%=asid_releae%></td>
+		        
+
+		          </tr>
+		        	
+		       <tr>
+		        <td> ASII </td>
+		        	<td> <%=ASIIGLOBAL_DATE%>  </td>
+		        	<td><%=ASII_MANG_SER%></td>
+		        	<td><%=asii_releae%></td>
+		        	
+		        	
+		        </tr>
+		          <tr>
+		        	<td> ASIU  </td>
+		        	<td> <%=ASIUGLOBAL_DATE%>  </td>
+		        	<td><%=ASIU_MANG_SER%></td>
+		        	<td><%=asiu_releae%></td>
+		        	
+		        	
+		        	
+		        		        	
+		          </tr>
+		        	
+		       
+		          <tr>
+				  <td> ASIM  </td>
+		        	<td> <%=ASIMGLOBAL_DATE%> </td>
+		        	<td><%=ASIM_MANG_SER%></td></td>
+		        	<td><%=asim_releae%></td>
+		        
+		          
+		          </tr>
+		        	
+		       
+
+    </table>
+</br>
+	</br>
+	</br>
+<script>
+window.onload = function () {
+	
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	
+	title:{
+		text:"File system Check"
+	},
+	axisX:{
+		interval: 1
+	},
+	axisY2:{
+				
+		
+	},
+	data: [{
+		type: "bar",
+		name: "Environments",
+		color: "#0059b3",
+		dataPoints: [
+			{ y: 111, label: "ASIA" },
+			{ y: 112, label: "ASID" },
+			{ y: 113, label: "ASII" },
+			{ y: 114, label: "ASIM" },
+			{ y: 115, label: "ASIU" },
+			{ y: 116, label: "ASIV" },
+			
+	
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 200px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+	</br>
+	
+
+
+<style>
+
+tr:nth-child(even) {background-color: #f7ffe6;}
+select {
+        width:100px;
+    }
+#chartdiv {
+  width: 40%;
+  height: 300px;
+position:fixed;
+right: 0;
+
+</style>
+
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+function reset() {
+  document.getElementById("myForm").reset();
+</script>
+	</div>
+	<script>
+function myFunctionn() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+    <script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* CSSScript Demo Page */
+google_ad_slot = "3025259193";
+google_ad_width = 728;
+google_ad_height = 10;
+//-->
+</script>
+      <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+ <script>
+ 
+         function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+    </script> 
+<script>
+(function(document) {
+	'use strict';
+
+	var LightTableFilter = (function(Arr) {
+
+		var _input;
+    var _select;
+
+		function _onInputEvent(e) {
+			_input = e.target;
+			var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filter);
+				});
+			});
+		}
+    
+		function _onSelectEvent(e) {
+			_select = e.target;
+			var tables = document.getElementsByClassName(_select.getAttribute('data-table'));
+			Arr.forEach.call(tables, function(table) {
+				Arr.forEach.call(table.tBodies, function(tbody) {
+					Arr.forEach.call(tbody.rows, _filterSelect);
+				});
+			});
+		}
+
+		function _filter(row) {
+      
+			var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+			row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+
+		}
+    
+		function _filterSelect(row) {
+     
+			var text_select = row.textContent.toLowerCase(), val_select = _select.options[_select.selectedIndex].value.toLowerCase();
+			row.style.display = text_select.indexOf(val_select) === -1 ? 'none' : 'table-row';
+
+		}
+
+		return {
+			init: function() {
+				var inputs = document.getElementsByClassName('light-table-filter');
+				var selects = document.getElementsByClassName('select-table-filter');
+				Arr.forEach.call(inputs, function(input) {
+					input.oninput = _onInputEvent;
+				});
+				Arr.forEach.call(selects, function(select) {
+         select.onchange  = _onSelectEvent;
+				});
+			}
+		};
+	})(Array.prototype);
+
+	document.addEventListener('readystatechange', function() {
+		if (document.readyState === 'complete') {
+			LightTableFilter.init();
+		}
+	});
+
+})(document);
+</script>
+
+
+</body>
+</html>
+
